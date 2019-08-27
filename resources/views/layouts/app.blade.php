@@ -7,6 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('lib/materialize/dist/css/materialize.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
@@ -17,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet"  href="" >
 </head>
 <body>
     <div id="app">
@@ -76,5 +83,9 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{asset('lib/jquery/dist/jquery.js')}}"></script>
+    <script src="{{asset('lib/materialize/dist/js/materialize.js')}}"></script>
+
+    <script src="{{asset('js/init.js')}}"></script>
 </body>
 </html>
