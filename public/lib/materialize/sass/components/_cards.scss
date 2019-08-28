@@ -80,7 +80,6 @@
     .card-image {
       max-width: 50%;
       img {
-        border-radius: 2px 0 0 2px;
         max-width: 100%;
         width: auto;
       }
@@ -133,9 +132,9 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      max-width: 100%;
       padding: $card-padding;
     }
+
   }
 
   .card-content {
@@ -144,26 +143,18 @@
 
     p {
       margin: 0;
+      color: inherit;
     }
     .card-title {
-      display: block;
-      line-height: 32px;
-      margin-bottom: 8px;
-
-      i {
-        line-height: 32px;
-      }
+      line-height: 48px;
     }
   }
 
   .card-action {
-    &:last-child {
-      border-radius: 0 0 2px 2px;
-    }
-    background-color: inherit; // Use inherit to inherit color classes
-    border-top: 1px solid rgba(160,160,160,.2);
     position: relative;
-    padding: 16px $card-padding;
+    background-color: inherit;
+    border-top: 1px solid rgba(160,160,160,.2);
+    padding: $card-padding;
 
     a:not(.btn):not(.btn-large):not(.btn-floating) {
       color: $card-link-color;
@@ -181,7 +172,6 @@
     background-color: $card-bg-color;
     width: 100%;
     overflow-y: auto;
-    left: 0;
     top: 100%;
     height: 100%;
     z-index: 3;

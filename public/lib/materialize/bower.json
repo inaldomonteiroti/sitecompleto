@@ -14,8 +14,8 @@
     "design"
   ],
   "main": [
-    "dist/js/materialize.js",
-    "dist/css/materialize.css"
+    "bin/materialize.css",
+    "bin/materialize.js" 
   ],
   "ignore": [
     "jade/",
@@ -37,5 +37,10 @@
     "sitemap.xml",
     "package.json",
     "Gruntfile.js"
-  ]
+  ],
+  "dependencies": {
+    "jquery": ">=2.1.1"
+  },
+  "devDependencies": {
+  }
 }

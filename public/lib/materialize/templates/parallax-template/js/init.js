@@ -1,7 +1,7 @@
 (function($){
   $(function(){
 
-    $('.sidenav').sidenav();
+    $('.button-collapse').sideNav();
     $('.parallax').parallax();
 
   }); // end of document ready

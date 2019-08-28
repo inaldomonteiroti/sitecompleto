@@ -1,7 +1,7 @@
 describe("Select Plugin", function () {
   beforeEach(function() {
     loadFixtures('select/selectFixture.html');
-    $('select').formSelect();
+    $('select').not('.disabled').material_select();
   });
 
   describe("Select", function () {
@@ -17,20 +17,20 @@ describe("Select Plugin", function () {
 
       expect(normalInput).toExist('Should dynamically generate select dropdown structure.');
       expect(normalDropdown).toExist('Should dynamically generate select dropdown structure.');
-      expect(normalInput).toBeVisible('Should be visible before dropdown is opened.');
+      expect(normalInput).toBeVisible('Should be hidden before dropdown is opened.');
       expect(normalDropdown).toBeHidden('Should be hidden before dropdown is opened.');
 
-      click(normalInput[0]);
+      normalInput.click();
 
       setTimeout(function() {
         expect(normalDropdown).toBeVisible('Should be visible after opening.');
         var firstOption = normalDropdown.find('li:not(.disabled)').first();
-        click(firstOption[0]);
+        firstOption.click();
         normalInput.blur();
 
         setTimeout(function() {
           expect(normalDropdown).toBeHidden('Should be hidden after choosing item.');
-          expect(normalInput.val()).toEqual(firstOption.text(), 'Value should equal chosen option.');
+          expect(normalInput.val()).toEqual(firstOption[0].innerText, 'Value should equal chosen option.');
           done();
         }, 400);
       }, 400);
@@ -42,11 +42,6 @@ describe("Select Plugin", function () {
 
       var firstOption = browserSelect.find('option[selected]');
       expect(normalInput.val()).toEqual(firstOption.text(), 'Value should be equal to preselected option.');
-    });
-
-    it("should not initialize if browser default", function () {
-      browserDefault = $('select.browser-default');
-      expect(browserDefault.parent().hasClass('select-wrapper')).toEqual(false, 'Wrapper should not be made');
     });
   });
 
@@ -63,23 +58,23 @@ describe("Select Plugin", function () {
 
       expect(multipleInput).toExist('Should dynamically generate select dropdown structure.');
       expect(multipleDropdown).toExist('Should dynamically generate select dropdown structure.');
-      expect(multipleInput).toBeVisible('Should be visible before dropdown is opened.');
+      expect(multipleInput).toBeVisible('Should be hidden before dropdown is opened.');
       expect(multipleDropdown).toBeHidden('Should be hidden before dropdown is opened.');
 
-      click(multipleInput[0]);
+      multipleInput.click();
 
       setTimeout(function() {
         expect(multipleDropdown).toBeVisible('Should be visible after opening.');
         var firstOption = multipleDropdown.find('li:not(.disabled)').first();
         var secondOption = multipleDropdown.find('li:not(.disabled)').eq(1);
         var thirdOption = multipleDropdown.find('li:not(.disabled)').eq(2);
-        click(firstOption[0]);
-        click(document.body);
+        firstOption.click();
+        $('body').click();
 
         setTimeout(function() {
           expect(multipleDropdown).toBeHidden('Should be hidden after choosing item.');
           expect(browserSelect.val()).toEqual(['1', '2', '3'], 'Actual select should have correct selected values.');
-          expect(multipleInput.val()).toEqual(firstOption.text() + ', ' + secondOption.text() + ', ' + thirdOption.text(), 'Value should equal chosen multiple options.');
+          expect(multipleInput.val()).toEqual(secondOption[0].innerText + ', ' + thirdOption[0].innerText + ', ' + firstOption[0].innerText, 'Value should equal chosen multiple options.');
           done();
         }, 400);
       }, 400);
@@ -94,23 +89,21 @@ describe("Select Plugin", function () {
       expect(multipleInput).toBeVisible('Should be hidden before dropdown is opened.');
       expect(multipleDropdown).toBeHidden('Should be hidden before dropdown is opened.');
 
-      click(multipleInput[0]);
+      multipleInput.click();
 
       setTimeout(function() {
         expect(multipleDropdown).toBeVisible('Should be visible after opening.');
         var disabledOption = multipleDropdown.find('li.disabled');
         var secondOption = multipleDropdown.find('li:not(.disabled)').eq(1);
         var thirdOption = multipleDropdown.find('li:not(.disabled)').eq(2);
-
-        click(secondOption[0]);
-        click(thirdOption[0]);
-        click(document.body);
-
+        secondOption.click();
+        thirdOption.click();
+        $('body').click();
 
         setTimeout(function() {
           expect(multipleDropdown).toBeHidden('Should be hidden after choosing item.');
-          expect(browserSelect.val()).toEqual([], 'Actual select element should be empty because none chosen.');
-          expect(multipleInput.val()).toEqual(disabledOption.text(), 'Value should equal default because none chosen.');
+          expect(browserSelect.val()).toEqual(null, 'Actual select element should be empty because none chosen.');
+          expect(multipleInput.val()).toEqual(disabledOption[0].innerText, 'Value should equal default because none chosen.');
           done();
         }, 400);
       }, 400);
@@ -139,7 +132,7 @@ describe("Select Plugin", function () {
 
       var optgroups = optDropdown.find('li.optgroup');
       browserSelect.find('optgroup').each(function(i) {
-        expect($(this).attr('label')).toEqual(optgroups.eq(i).text(), 'should generate optgroup structure.');
+        expect($(this).attr('label')).toEqual(optgroups.eq(i)[0].innerText, 'should generate optgroup structure.');
       });
 
       expect(optInput).toExist('Should dynamically generate select dropdown structure.');
@@ -147,17 +140,17 @@ describe("Select Plugin", function () {
       expect(optInput).toBeVisible('Should be hidden before dropdown is opened.');
       expect(optDropdown).toBeHidden('Should be hidden before dropdown is opened.');
 
-      click(optInput[0]);
+      optInput.click();
 
       setTimeout(function() {
         expect(optDropdown).toBeVisible('Should be visible after opening.');
         var secondOption = optDropdown.find('li:not(.disabled):not(.optgroup)').eq(1);
-        click(secondOption[0]);
+        secondOption.click();
         optInput.blur();
 
         setTimeout(function() {
           expect(optDropdown).toBeHidden('Should be hidden after choosing item.');
-          expect(optInput.val()).toEqual(secondOption.text(), 'Value should be equal to selected option.');
+          expect(optInput.val()).toEqual(secondOption[0].innerText, 'Value should be equal to selected option.');
           done();
         }, 400);
       }, 400);
@@ -178,7 +171,7 @@ describe("Select Plugin", function () {
 
       var optgroups = optDropdown.find('li.optgroup');
       browserSelect.find('optgroup').each(function(i) {
-        expect($(this).attr('label')).toEqual(optgroups.eq(i).text(), 'should generate optgroup structure.');
+        expect($(this).attr('label')).toEqual(optgroups.eq(i)[0].innerText, 'should generate optgroup structure.');
       });
 
       expect(optInput).toExist('Should dynamically generate select dropdown structure.');
@@ -186,12 +179,12 @@ describe("Select Plugin", function () {
       expect(optInput).toBeVisible('Should be hidden before dropdown is opened.');
       expect(optDropdown).toBeHidden('Should be hidden before dropdown is opened.');
 
-      click(optInput[0]);
+      optInput.click();
 
       setTimeout(function() {
         expect(optDropdown).toBeVisible('Should be visible after opening.');
         var optgroup = optDropdown.find('li.optgroup').first();
-        click(optgroup[0]);
+        optgroup.click();
         optInput.blur();
 
         setTimeout(function() {
