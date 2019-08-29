@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".button-collapse").sideNav();
+	$(".button-collapse").sideNav(); //Habilitar sidebar
 	$('.slider').slider({full_width: true});
 	$('select').material_select();
 });
